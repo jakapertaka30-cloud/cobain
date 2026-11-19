@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Kartu Riwayat Maintenance – PT Gardena Furniture</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>PT GARDENA FURNITURE – Kartu Riwayat Maintenance Digital<small>Peralatan Produksi · No. Kartu GRD-MTN-xxx</small></h1>
+  <div class="actions">
+    <button id="addB" class="p">+ Catat Maintenance</button>
+    <button id="expB">Ekspor CSV</button>
+    <button id="prtB">Cetak Kartu</button>
+    <button id="rstB">Reset Data</button>
+  </div>
+</header>
+
+<main>
+  <div class="card note"><b>Sumber data:</b> Laporan KP, Tabel 2.4 (peralatan), Tabel 3.9 (riwayat gangguan 10 Jan–29 Sep 2026) dan Tabel 3.10 (jadwal PM usulan). Entri No. 16 tidak tercantum di laporan, sehingga total di sini (17 entri) sedikit di bawah total laporan (18 catatan: respons 20,2 jam, downtime 26,0 jam, Rp1.585.000). Kolom pelaksana dan tanggal pemeriksaan berikutnya belum ada di laporan, jadi dikosongkan.</div>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="grid">
+    <div class="card"><h2>Gangguan per Peralatan</h2><div id="c1"></div></div>
+    <div class="card"><h2>Downtime per Peralatan (jam)</h2><div id="c2"></div></div>
+    <div class="card"><h2>Komponen yang Diganti</h2><div id="c3"></div></div>
+    <div class="card"><h2>Jadwal PM Usulan (Tabel 3.10)</h2><div id="c4"></div></div>
+  </section>
+
+  <section class="card">
+    <h2>Riwayat Gangguan dan Penanganan (Kartu Riwayat)</h2>
+    <div class="tools">
+      <input id="q" placeholder="Cari peralatan, gangguan, penyebab…">
+      <select id="fe"></select>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>No</th><th>Tanggal</th><th>Peralatan</th><th>Jenis</th><th>Gangguan / Penyebab</th><th>Tindakan</th><th>Suku Cadang</th><th>Respons / Downtime</th><th>Biaya</th><th>Pelaksana</th><th>Verifikasi</th><th>Periksa Berikutnya</th></tr></thead>
+        <tbody id="tb"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <form id="frm" method="dialog">
+    <h2>Catat Kegiatan Maintenance</h2>
+    <div class="f">
+      <label class="w">Peralatan<select id="eq"></select></label>
+      <label>Tanggal Kegiatan<input type="date" id="tg"></label>
+      <label>Jenis Kegiatan<select id="jn"><option>CM</option><option>PM</option></select></label>
+      <label class="w">Gangguan / Kondisi<input id="kk"></label>
+      <label class="w">Penyebab<input id="pn"></label>
+      <label class="w">Tindakan yang Dilakukan<input id="ti"></label>
+      <label>Suku Cadang<input id="sc" placeholder="kosongkan jika tidak ada"></label>
+      <label>Pelaksana<input id="pl"></label>
+      <label>Respons (jam)<input type="number" step="0.1" min="0" id="rs" value="0"></label>
+      <label>Downtime (jam)<input type="number" step="0.1" min="0" id="dt" value="0"></label>
+      <label>Biaya (Rp)<input type="number" step="1000" min="0" id="bi" value="0"></label>
+      <label>Hasil Verifikasi<select id="vf"><option>Normal</option><option>Perbaikan</option></select></label>
+      <label class="w">Pemeriksaan Berikutnya<input type="date" id="nx"></label>
+    </div>
+    <div class="sign">
+      <div>Dibuat oleh<br>(Pelaksana Maintenance)<b id="s1">—</b></div>
+      <div>Diperiksa oleh<br>(SPV/Koordinator)<b>—</b></div>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" id="cancelB">Batal</button>
+      <button type="button" id="saveB" class="p">Simpan</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Urutan penting: data.js dulu, baru app.js. Tanpa ES module agar bisa dibuka langsung (file://). -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
